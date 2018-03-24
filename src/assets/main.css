@@ -1,0 +1,10 @@
+.el-table .warning-row {
+  text-align: center;
+  background: #eff6fa;
+}
+.el-table .success-row {
+  text-align: center;
+}
+h1{
+  font-size:30px;
+}
