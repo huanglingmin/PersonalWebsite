@@ -1,7 +1,4 @@
 export default {
-  menuBar: {
-
-  },
   cityNode: {
     '北京': 101010100,
     '海淀': 101010200,

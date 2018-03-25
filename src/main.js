@@ -15,7 +15,8 @@ Vue.config.productionTip = false;
 Vue.use(router);
 Vue.use(ElementUI);
 let api = axios.create({});
-Vue.prototype.api = api;
+Vue.prototype.get = api.get;
+Vue.prototype.post = api.get;
 
 /* eslint-disable no-new */
 // new Proxy(api, {

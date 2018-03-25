@@ -12,37 +12,16 @@
     <div class="leftMenu">
       <el-row class="tac">
         <el-col :span="24">
-          <el-menu default-active="" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" background-color="rgb(73, 80, 96)" text-color="#fff">
-            <el-submenu index="1">
+          <el-menu :default-active="$route.query.name" class="el-menu-vertical-demo" router @open="handleOpen" @close="handleClose" background-color="rgb(73, 80, 96)" text-color="#fff">
+            <el-submenu v-for="item in List" :index="item.index" :key="item.index">
               <template slot="title">
-                <i class="el-icon-location"></i>
-                <span>导航一</span>
+                <i :class="item.icon"></i>
+                <span class="title">{{item.title}}</span>
               </template>
-              <el-menu-item-group>
-                <template slot="title">分组一</template>
-                <el-menu-item index="1-1">选项1</el-menu-item>
-                <el-menu-item index="1-2">选项2</el-menu-item>
-              </el-menu-item-group>
-              <el-menu-item-group title="分组2">
-                <el-menu-item index="1-3">选项3</el-menu-item>
-              </el-menu-item-group>
-              <el-submenu index="1-4">
-                <template slot="title">选项4</template>
-                <el-menu-item index="1-4-1">选项1</el-menu-item>
-              </el-submenu>
+               <el-menu-item-group>
+                <el-menu-item v-for="subItem in item.childer" :index="subItem.index" :route="subItem.name" :key="subItem.title">{{subItem.title}}</el-menu-item>
+               </el-menu-item-group>
             </el-submenu>
-            <el-menu-item index="2">
-              <i class="el-icon-menu"></i>
-              <span slot="title">导航二</span>
-            </el-menu-item>
-            <el-menu-item index="3" disabled>
-              <i class="el-icon-document"></i>
-              <span slot="title">导航三</span>
-            </el-menu-item>
-            <el-menu-item index="4">
-              <i class="el-icon-setting"></i>
-              <span slot="title">导航四</span>
-            </el-menu-item>
           </el-menu>
         </el-col>
       </el-row>
@@ -53,24 +32,33 @@
 
 <script>
 import Cookies from 'js-cookie';
+import { mapState } from 'vuex';
 export default {
-  data() {
+  data () {
     return {
       username: ''
     };
   },
+  computed: {
+    ...mapState({
+      List: state => state.List.menuBar
+    })
+  },
   methods: {
-    handleOpen(key, keyPath) {
+    handleOpen (key, keyPath) {
       console.log(key, keyPath);
     },
-    handleClose(key, keyPath) {
+    handleClose (key, keyPath) {
       console.log(key, keyPath);
     },
-    ExitLogin() {
+    changeMenu (index, indexPath) {
+      console.log(index);
+    },
+    ExitLogin () {
       console.log('退出');
     }
   },
-  mounted() {
+  mounted () {
     this.username = Cookies.get('username');
     let password = Cookies.get('password');
     console.log(password);
@@ -88,19 +76,22 @@ export default {
     min-height: 1000px;
     height: 100%;
     background: rgb(73, 80, 96);
+    .title{
+      font-size: 1rem;
+    }
   }
   .topBar {
     width: 100%;
     height: 56px;
     background-color: #fff;
     line-height: 56px;
-    .logo{
+    .logo {
       width: 200px;
       height: 56px;
       float: left;
       background: rgb(73, 80, 96);
       color: #6e6e6e;
-      span{
+      span {
         font-size: 20px;
         font-weight: bold;
         color: #fff;

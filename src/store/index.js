@@ -1,10 +1,12 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import Pub from './Public/';
+import Public from './Public/';
+import List from './List/';
 Vue.use(Vuex);
 let Store = new Vuex.Store({
   modules: {
-    Pub
+    Public,
+    List
   }
 });
 export default Store;
