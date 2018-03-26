@@ -17,6 +17,7 @@ const createLintingRule = () => ({
   include: [resolve('src'), resolve('test')],
   options: {
     formatter: require('eslint-friendly-formatter'),
+    // 不符合ESLint的规则时,只警告不会编译不通过
     emitWarning: !config.dev.showEslintErrorsInOverlay
   }
 })

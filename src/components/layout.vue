@@ -42,7 +42,8 @@ export default {
   },
   computed: {
     ...mapState({
-      List: state => state.List.menuBar
+      List: state => state.List.menuBar,
+      cityNode: stae => stae.Public.cityNode
     })
   },
   methods: {
@@ -57,9 +58,19 @@ export default {
     },
     ExitLogin() {
       console.log('退出');
+    },
+    getWetherData() {
+      const data = {
+        app: 'hao360',
+        _jsonp: 'smartloaddata',
+        code: 101010100
+      };
+      // this.post('http://cdn.weather.hao.360.cn/api_weather_info.php?app=hao360&_jsonp=smartloaddata&code=101010100').then(e => console.log(e));
+      this.get('http://cdn.weather.hao.360.cn/api_weather_info.php', {...data}).then(e => console.log(e));
     }
   },
   mounted() {
+    this.getWetherData();
     this.username = Cookies.get('username');
     let password = Cookies.get('password');
     console.log(password);
@@ -111,7 +122,7 @@ export default {
       }
     }
   }
-  .context{
+  .context {
     margin: 20px 20px 20px 220px;
   }
 }

@@ -16,23 +16,29 @@ Vue.use(router);
 Vue.use(ElementUI);
 let api = axios.create({});
 Vue.prototype.get = api.get;
-Vue.prototype.post = api.get;
-
+Vue.prototype.post = api.post;
+axios.interceptors.request.use(
+  config => {
+    return config;
+  },
+  err => {
+    return Promise.reject(err);
+  });
 /* eslint-disable no-new */
-// new Proxy(api, {
-//   get (target, propKey, receiver) {
-//     return function (...args) {
-//       return target[propKey](...args)
-//         .then((res) => {
-//           const resData = typeof res.data === 'string' ? JSON.parse(res.data) : res.data;
-//           return typeof resData.obj === 'string' ? JSON.parse(resData.obj) : resData.obj;
-//         })
-//         .catch((err) => {
-//           throw err;
-//         });
-//     };
-//   }
-// });
+new Proxy(api, {
+  get (target, propKey, receiver) {
+    return function (...args) {
+      return target[propKey](...args)
+        .then((res) => {
+          const resData = typeof res.data === 'string' ? JSON.parse(res.data) : res.data;
+          return typeof resData.obj === 'string' ? JSON.parse(resData.obj) : resData.obj;
+        })
+        .catch((err) => {
+          throw err;
+        });
+    };
+  }
+});
 new Vue({
   el: '#app',
   router,
