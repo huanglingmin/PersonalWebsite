@@ -12,8 +12,8 @@ export default {
         },
         {
           index: '1-2',
-          title: '选项二',
-          name: '/'
+          title: '表格拖动',
+          name: 'sort-table'
         },
         {
           index: '1-3',
