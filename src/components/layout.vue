@@ -70,7 +70,7 @@ export default {
     }
   },
   mounted() {
-    this.getWetherData();
+    // this.getWetherData();
     this.username = Cookies.get('username');
     let password = Cookies.get('password');
     console.log(password);
