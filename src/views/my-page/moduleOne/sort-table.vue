@@ -6,8 +6,9 @@
       </ul>
     </el-col>
     <el-col :span="8" class="h300">
-      <ul ref="doList" class="iview-admin-draggable-list">
-      </ul>
+      <div ref="doList" class="iview-admin-draggable-list">
+        <p v-for="item in doArray" :key="item">{{item}}</p>
+      </div>
     </el-col>
     <el-col :span="8" class="h300">
       <ul ref="todoList3" class="iview-admin-draggable-list">
@@ -57,6 +58,7 @@ export default {
       let movedRow = this.doArray[e.oldIndex];
       this.doArray.splice(e.oldIndex, 1);
       this.doArray.splice(e.newIndex, 0, movedRow);
+      console.log(e);
     },
     onRemoveFun(e) {
       this.doArray.splice(event.oldIndex, 1);
@@ -69,7 +71,7 @@ export default {
     Sortable.create(that.$refs.todoList, {
       group: {
         name: 'list',
-        pull: true
+        pull: 'clone',
       },
       animation: 120,
       // 是否允许表格内拖动
@@ -77,7 +79,10 @@ export default {
       ghostClass: 'placeholder-style',
       fallbackClass: 'iview-admin-cloned-item',
       onRemove(event) {
-        that.doArray.splice(event.newIndex, 0, that.todoArray[event.item.getAttribute('data-index')]);
+        event.item.hidden = true;
+        // event.item.style.display = 'none';
+        that.doArray.push(`添加的数据${new Date()}`);
+        // that.doArray.splice(event.newIndex, 0, that.todoArray[event.item.getAttribute('data-index')]);
       }
     });
     // 添加到的位置
@@ -89,6 +94,7 @@ export default {
       },
       filter: '.iview-admin-draggable-delete',
       animation: 120,
+      draggable: 'p',
       fallbackClass: 'iview-admin-cloned-item',
       onEnd: that.onEndFun,
       onRemove: that.onRemoveFun

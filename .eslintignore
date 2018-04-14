@@ -1,6 +1,7 @@
 /build/
 /config/
 /dist/
+/src/comme/
 /static/
 /*.js
 /test/unit/coverage/

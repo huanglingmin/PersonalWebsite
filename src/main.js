@@ -8,6 +8,7 @@ import ElementUI from 'element-ui';
 import axios from 'axios';
 import 'element-ui/lib/theme-chalk/index.css';
 import './assets/fonts/style.css';
+// import './comme/js/jqueryForm';
 // import 'assets/scss/reset.css';
 // import 'assets/main.css';
 
