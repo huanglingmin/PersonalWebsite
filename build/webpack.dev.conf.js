@@ -66,6 +66,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       },
       {
         from: path.resolve(__dirname, '../static/tinymce'),
+        to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
     ])

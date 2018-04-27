@@ -26,28 +26,28 @@ export default {
     return {
       todoArray: [
         {
-          content: '完成iview-admin基本开发'
+          content: '选项一'
         },
         {
-          content: '对iview-admin进行性能优化'
+          content: '选项二'
         },
         {
-          content: '对iview-admin的细节进行优化'
+          content: '选项三'
         },
         {
-          content: '完成iview-admin开发'
+          content: '选项四'
         },
         {
-          content: '解决发现的bug'
+          content: '选项五'
         },
         {
-          content: '添加更多组件'
+          content: '选项六'
         },
         {
-          content: '封装更多图表'
+          content: '选项七'
         },
         {
-          content: '增加更多人性化功能'
+          content: '选项八'
         }
       ],
       doArray: []
@@ -71,14 +71,17 @@ export default {
     Sortable.create(that.$refs.todoList, {
       group: {
         name: 'list',
+        // 列表单元移出，移动的为该元素的副本
         pull: 'clone',
       },
       animation: 120,
       // 是否允许表格内拖动
       sort: false,
+      // 生成一个副本作为影子单元在加入的列表中显示
       ghostClass: 'placeholder-style',
       fallbackClass: 'iview-admin-cloned-item',
       onRemove(event) {
+        // 隐藏拖入列表的数据
         event.item.hidden = true;
         // event.item.style.display = 'none';
         that.doArray.push(`添加的数据${new Date()}`);
@@ -94,6 +97,7 @@ export default {
       },
       filter: '.iview-admin-draggable-delete',
       animation: 120,
+      // 在doList中只有p单元可以拖动(此处值为类名)
       draggable: 'p',
       fallbackClass: 'iview-admin-cloned-item',
       onEnd: that.onEndFun,
@@ -114,7 +118,7 @@ export default {
     list-style: none;
     li {
       padding: 9px;
-      border: 1px solid #e7ebee;
+      border: 1px solid #ddd;
       border-radius: 3px;
       margin-bottom: 5px;
       cursor: pointer;
