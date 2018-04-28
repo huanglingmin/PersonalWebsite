@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import Public from './Public/';
-import List from './List/';
+import Public from './Public';
+import List from './List';
 Vue.use(Vuex);
-let Store = new Vuex.Store({
+const Store = new Vuex.Store({
   modules: {
     Public,
     List
