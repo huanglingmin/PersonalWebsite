@@ -5,10 +5,12 @@
 </template>
 
 <script>
-import textEditor from '../../../components/text-editor/text-editor';
+import textEditor from '@/components/text-editor/text-editor';
 export default {
   components: {
     textEditor
+  },
+  mounted() {
   }
 };
 </script>

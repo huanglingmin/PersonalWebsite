@@ -12,21 +12,22 @@
     <div class="leftMenu">
       <el-row class="tac">
         <el-col :span="24">
-          <el-menu :default-active="$route.query.name" class="el-menu-vertical-demo" router @open="handleOpen" @close="handleClose" background-color="rgb(73, 80, 96)" text-color="#fff">
+          <el-menu default-active="" class="el-menu-vertical-demo" @select="selectMenu" router @open="handleOpen" @close="handleClose" background-color="rgb(73, 80, 96)" text-color="#fff">
             <el-submenu v-for="item in List" :index="item.index" :key="item.index">
               <template slot="title">
                 <i :class="item.icon"></i>
                 <span class="title">{{item.title}}</span>
               </template>
-               <el-menu-item-group>
-                <el-menu-item v-for="subItem in item.childer" :index="subItem.index" :route="subItem.name" :key="subItem.title">{{subItem.title}}</el-menu-item>
-               </el-menu-item-group>
+              <el-menu-item v-for="subItem in item.childer" :index="subItem.name" :key="subItem.title">{{subItem.title}}</el-menu-item>
             </el-submenu>
           </el-menu>
         </el-col>
       </el-row>
     </div>
-
+    <!-- 子路由页面入口 -->
+    <div class="context">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -34,31 +35,42 @@
 import Cookies from 'js-cookie';
 import { mapState } from 'vuex';
 export default {
-  data () {
+  data() {
     return {
       username: ''
     };
   },
   computed: {
     ...mapState({
-      List: state => state.List.menuBar
+      List: state => state.List.menuBar,
+      cityNode: stae => stae.Public.cityNode
     })
   },
   methods: {
-    handleOpen (key, keyPath) {
+    handleOpen(key, keyPath) {
       console.log(key, keyPath);
     },
-    handleClose (key, keyPath) {
+    handleClose(key, keyPath) {
       console.log(key, keyPath);
     },
-    changeMenu (index, indexPath) {
+    selectMenu(index) {
       console.log(index);
     },
-    ExitLogin () {
+    ExitLogin() {
       console.log('退出');
+    },
+    getWetherData() {
+      const data = {
+        app: 'hao360',
+        _jsonp: 'smartloaddata',
+        code: 101010100
+      };
+      // this.post('http://cdn.weather.hao.360.cn/api_weather_info.php?app=hao360&_jsonp=smartloaddata&code=101010100').then(e => console.log(e));
+      this.get('http://cdn.weather.hao.360.cn/api_weather_info.php', {...data}).then(e => console.log(e));
     }
   },
-  mounted () {
+  mounted() {
+    // this.getWetherData();
     this.username = Cookies.get('username');
     let password = Cookies.get('password');
     console.log(password);
@@ -76,7 +88,8 @@ export default {
     min-height: 1000px;
     height: 100%;
     background: rgb(73, 80, 96);
-    .title{
+    float: left;
+    .title {
       font-size: 1rem;
     }
   }
@@ -108,6 +121,9 @@ export default {
         font-size: 30px;
       }
     }
+  }
+  .context {
+    margin: 20px 20px 20px 220px;
   }
 }
 </style>

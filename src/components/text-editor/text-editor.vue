@@ -5,6 +5,7 @@
 
 <script>
 import tinymce from 'tinymce';
+import { plugins, toolbar1 } from './setting';
 export default {
   name: 'text-editor',
   data() {
@@ -16,7 +17,7 @@ export default {
     init() {
       this.$nextTick(() => {
         let vm = this;
-        let height = document.body.offsetHeight - 300;
+        let height = document.body.offsetHeight - 200;
         tinymce.init({
           selector: '#tinymceEditer',
           branding: false,
@@ -24,15 +25,11 @@ export default {
           height: height,
           language: 'zh_CN.GB2312',
           menubar: 'edit insert view format table tools',
-          plugins: [
-            'advlist autolink lists link image charmap print preview hr anchor pagebreak imagetools',
-            'searchreplace visualblocks visualchars code fullpage',
-            'insertdatetime media nonbreaking save table contextmenu directionality',
-            'emoticons paste textcolor colorpicker textpattern imagetools codesample'
-          ],
-          toolbar1: ' newnote print preview | undo redo | insert | styleselect | forecolor backcolor bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image emoticons media codesample',
+          plugins,
+          toolbar1,
           autosave_interval: '20s',
           image_advtab: true,
+          imageupload_url: '',
           table_default_styles: {
             width: '100%',
             borderCollapse: 'collapse'

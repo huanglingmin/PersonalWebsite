@@ -5,19 +5,27 @@ import App from './App';
 import router from './router';
 import store from './store';
 import ElementUI from 'element-ui';
-import axios from 'axios';
+// import axios from 'axios';
+import api from './api';
 import 'element-ui/lib/theme-chalk/index.css';
 import './assets/fonts/style.css';
+// import './comme/js/jqueryForm';
 // import 'assets/scss/reset.css';
 // import 'assets/main.css';
 
 Vue.config.productionTip = false;
 Vue.use(router);
 Vue.use(ElementUI);
-let api = axios.create({});
+// let api = axios.create({});
 Vue.prototype.get = api.get;
-Vue.prototype.post = api.get;
-
+Vue.prototype.post = api.post;
+// axios.interceptors.request.use(
+//   config => {
+//     return config;
+//   },
+//   err => {
+//     return Promise.reject(err);
+//   });
 /* eslint-disable no-new */
 // new Proxy(api, {
 //   get (target, propKey, receiver) {

@@ -120,8 +120,9 @@ const webpackConfig = merge(baseWebpackConfig, {
         ignore: ['.*']
       },
       {
-        from: 'src/components/text-editor/tinymce',
-        ignore: ['text-editor.vue']
+        from: path.resolve(__dirname, '../static/tinymce'),
+        // to: config.build.assetsSubDirectory,
+        ignore: ['.*']
       }
     ])
   ]
