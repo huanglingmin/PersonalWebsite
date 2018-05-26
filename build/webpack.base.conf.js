@@ -4,7 +4,8 @@ const utils = require('./utils')
 const config = require('../config')
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const vueLoaderConfig = require('./vue-loader.conf')
+const vueLoaderConfig = require('./vue-loader.conf');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 //获取当前文件的相对路劲
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -21,6 +22,10 @@ const createLintingRule = () => ({
   }
 })
 
+const loading = {
+  html: fs.readFileSync(path.join(__dirname, './loading.html')),
+  css: '<style>' + fs.readFileSync(path.join(__dirname, './loading.css'))
+};
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
