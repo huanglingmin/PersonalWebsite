@@ -23,10 +23,10 @@ const createLintingRule = () => ({
   }
 })
 
-const loading = {
-  html: fs.readFileSync(path.join(__dirname, './loading.html')),
-  css: '<style>' + fs.readFileSync(path.join(__dirname, './loading.css'))
-};
+// const loading = {
+//   html: fs.readFileSync(path.join(__dirname, './loading.html')),
+//   css: '<style>' + fs.readFileSync(path.join(__dirname, './loading.css'))
+// };
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
