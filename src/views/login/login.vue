@@ -21,8 +21,9 @@
 
 <script>
 import Cookies from 'js-cookie';
+import qs from 'qs';
 export default {
-  data() {
+  data () {
     var validateusername = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入用户名'));
@@ -53,9 +54,23 @@ export default {
     };
   },
   methods: {
-    submitForm(formName) {
+    login () {
+      const params = {
+        mobile: this.ruleForm.username,
+        password: this.ruleForm.password
+      };
+      this.post('portal-web/login', qs.stringify(params))
+        .then(e => {
+          if (e.result === '1') {
+            this.$message.success(e.msg);
+          }
+        })
+        .catch(e => { });
+    },
+    submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          this.login();
           Cookies.set('username', this.ruleForm.username);
           Cookies.set('password', this.ruleForm.password);
           this.$router.push({ name: 'home' });
@@ -65,12 +80,12 @@ export default {
       });
     }
   },
-  mounted() {
+  mounted () {
 
   }
 };
 </script>
 
 <style lang="less" scoped>
-@import url('./login');
+@import url("./login");
 </style>

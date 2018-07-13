@@ -14,7 +14,7 @@ export default {
     // console.log(username, '用户名');
     // console.log(password, '密码');
     console.log(this.helloWord);
-    this.getInfo();
+    // this.getInfo();
   },
   components: {
     layout

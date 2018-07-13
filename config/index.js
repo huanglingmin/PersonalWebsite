@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://cdn.weather.hao.360.cn/api_weather_info.php',
+        target: 'https://pretest.forwe.store/',
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''

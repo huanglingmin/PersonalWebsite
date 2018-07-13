@@ -13,12 +13,12 @@
       <el-row class="tac">
         <el-col :span="24">
           <el-menu default-active="" class="el-menu-vertical-demo" @select="selectMenu" router @open="handleOpen" @close="handleClose" background-color="rgb(73, 80, 96)" text-color="#fff">
-            <el-submenu v-for="item in List" :index="item.index" :key="item.index">
+            <el-submenu v-for="item in menuList" :index="item.title" :key="item.title">
               <template slot="title">
                 <i :class="item.icon"></i>
                 <span class="title">{{item.title}}</span>
               </template>
-              <el-menu-item v-for="subItem in item.childer" :index="subItem.name" :key="subItem.title">{{subItem.title}}</el-menu-item>
+              <el-menu-item v-for="subItem in item.children" :index="subItem.name" :key="subItem.title">{{subItem.title}}</el-menu-item>
             </el-submenu>
           </el-menu>
         </el-col>
@@ -32,8 +32,8 @@
 </template>
 
 <script>
-import Cookies from 'js-cookie';
-import { mapState } from 'vuex';
+// import Cookies from 'js-cookie';
+import { mapState, mapGetters } from 'vuex';
 export default {
   data() {
     return {
@@ -41,8 +41,8 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(['menuList']),
     ...mapState({
-      List: state => state.List.menuBar,
       cityNode: stae => stae.Public.cityNode
     })
   },
@@ -57,7 +57,13 @@ export default {
       console.log(index);
     },
     ExitLogin() {
-      console.log('退出');
+      this.post('portal-web/logout')
+        .then(e => {
+          if (e.result === '1') {
+            // this.data = e.data;
+            console.log(e.data);
+          }
+        });
     },
     getWetherData() {
       const data = {
@@ -71,9 +77,6 @@ export default {
   },
   mounted() {
     // this.getWetherData();
-    this.username = Cookies.get('username');
-    let password = Cookies.get('password');
-    console.log(password);
   }
 };
 </script>
@@ -98,6 +101,7 @@ export default {
     height: 56px;
     background-color: #fff;
     line-height: 56px;
+    z-index: 1000;
     .logo {
       width: 200px;
       height: 56px;
