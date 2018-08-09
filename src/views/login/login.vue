@@ -56,13 +56,15 @@ export default {
   methods: {
     login () {
       const params = {
-        mobile: this.ruleForm.username,
+        username: this.ruleForm.username,
         password: this.ruleForm.password
       };
-      this.post('portal-web/login', qs.stringify(params))
+      this.post('/login', qs.stringify(params))
         .then(e => {
-          if (e.result === '1') {
+          if (e.status === 200) {
             this.$message.success(e.msg);
+          } else {
+            this.$message.error(e.msg);
           }
         })
         .catch(e => { });

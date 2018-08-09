@@ -98,6 +98,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     }),
     // extract webpack runtime and module manifest to its own file in order to
     // prevent vendor hash from being updated whenever app bundle is updated
+    // 把webpack的module管理相关基础代码从vendor中提取到manifest
     new webpack.optimize.CommonsChunkPlugin({
       name: 'manifest',
       minChunks: Infinity

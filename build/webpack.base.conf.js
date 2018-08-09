@@ -30,17 +30,32 @@ const createLintingRule = () => ({
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
-    app: ['babel-polyfill', './src/main.js']
+    // 这里引入了一个chunk的概念，chunk表示一个文件，默认情况下webpack的输入是一个入口文件，
+    // 输出也是一个文件，这个文件就是一个chunk，chunkId就是产出时给每个文件一个唯一标识id，
+    // chunkhash就是文件内容的md5值，name就是在entry中指定的key值。
+    app: ['babel-polyfill', './src/main.js'],
+    // vendor: ['element-ui']
   },
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
+    // filename: '[name].[chunkHash:5].js',
     publicPath: process.env.NODE_ENV === 'production'
       ? config.build.assetsPublicPath
       : config.dev.assetsPublicPath
   },
+  plugins: [
+    // new HtmlWebpackPlugin({
+    //   title: 'demo',
+    //   template: 'index.html' // 模板路径
+    // }),
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   names: ['vendor', 'manifest']
+    // }),
+  ],
   // 取别名
   resolve: {
+    //自动解析确定的拓展名,使导入模块时不带拓展名
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',

@@ -12,8 +12,10 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'https://pretest.forwe.store/',
+        // target: 'https://pretest.forwe.store/',
+        target: 'http://10.255.0.134:3000',
         changeOrigin: true,
+        // secure: false,
         pathRewrite: {
           '^/api': ''
         }

@@ -4,6 +4,8 @@ import axios from 'axios';
 var instance = axios.create({
   baseURL: '/api',
   timeout: 10000,
+  // withCredentials: true,
+  // responseType: 'json',
   headers: {
     'If-Modified-Since': 0,
     'Cache-Control': 'no-cache'
@@ -25,9 +27,9 @@ instance.interceptors.response.use(function (response) {
   if (response.data && response.data.status) {
     setResponse(response.data.status);
   }
-  if (response && response.data && response.data.status !== 200) {
-    response.data.data = {};
-  }
+  // if (response && response.data && response.data.status !== 200) {
+  //   response.data.data = {};
+  // }
 
   return response;
 }, function (error) {
@@ -78,7 +80,11 @@ api.request = function () {
   let method = arguments[1];
   let url = arguments[2];
   let data = arguments[3];
-  let config = { method, url, responseType: 'json' };
+  let config = {
+    method,
+    url,
+    responseType: 'json'
+  };
 
   config[isPost ? 'data' : 'params'] = data;
 
@@ -109,3 +115,39 @@ likePost.forEach(method => {
 api['pathUpload'] = '/api/upload';
 
 export default api;
+/*
+// 超时请求
+//在main.js设置全局的请求次数，请求的间隙
+axios.defaults.retry = 4;
+axios.defaults.retryDelay = 1000;
+
+axios.interceptors.response.use(undefined, function axiosRetryInterceptor(err) {
+  var config = err.config;
+  // If config does not exist or the retry option is not set, reject
+  if (!config || !config.retry) return Promise.reject(err);
+
+  // Set the variable for keeping track of the retry count
+  config.__retryCount = config.__retryCount || 0;
+
+  // Check if we've maxed out the total number of retries
+  if (config.__retryCount >= config.retry) {
+    // Reject with the error
+    return Promise.reject(err);
+  }
+
+  // Increase the retry count
+  config.__retryCount += 1;
+
+  // Create new promise to handle exponential backoff
+  var backoff = new Promise(function(resolve) {
+    setTimeout(function() {
+      resolve();
+    }, config.retryDelay || 1);
+  });
+
+  // Return the promise in which recalls axios to retry the request
+  return backoff.then(function() {
+    return axios(config);
+  });
+});
+*/
