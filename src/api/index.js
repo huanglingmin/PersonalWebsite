@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import axios from 'axios';
+import qs from 'qs';
 
 var instance = axios.create({
   baseURL: '/api',
@@ -15,6 +16,9 @@ var instance = axios.create({
 // 添加一个请求拦截器
 instance.interceptors.request.use(function (config) {
   // Do something before request is sent
+  if (config.method === 'post' && config.data.constructor !== FormData) {
+    config.data = qs.stringify(config.data);
+  }
   return config;
 }, function (error) {
   // Do something with request error

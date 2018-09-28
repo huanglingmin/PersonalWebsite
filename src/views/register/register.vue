@@ -1,31 +1,39 @@
 <template>
-  <div class="login">
-    <transition name="fade">
+<div class="register">
+  <transition name="fade">
       <div class="content">
-        <p class="title">欢迎登录</p>
-        <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="30px" class="demo-ruleForm">
+        <p class="title">注册帐号</p>
+        <el-form label-position="right" :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="30px" class="demo-ruleForm">
           <el-form-item label="" prop="iphone">
             <el-input prefix-icon="el-icon-phone-outline" type="text" v-model="ruleForm.iphone" auto-complete="off" size="small" placeholder="手机号" maxlength="11"></el-input>
+          </el-form-item>
+          <el-form-item label="" prop="username">
+            <el-input prefix-icon="el-icon-document" type="text" v-model="ruleForm.username" auto-complete="off" size="small" placeholder="用户名" maxlength="11"></el-input>
           </el-form-item>
           <el-form-item label="" prop="password">
             <el-input prefix-icon="el-icon-view" type="password" v-model="ruleForm.password" @keydown.enter.native="submitForm('ruleForm')" auto-complete="off" size="small" maxlength="20" placeholder="密码"></el-input>
           </el-form-item>
-          <el-form-item style="margin-bottom: 0;">
-            <el-button type="success" @click="submitForm('ruleForm')" size="small" class="submit">登录</el-button>
+          <el-form-item>
+            <el-button type="success" @click="submitForm('ruleForm')" size="small" class="submit">注册</el-button>
           </el-form-item>
         </el-form>
-        <el-button type="text" class="register" @click="$router.push({ name: 'register' });">注册</el-button>
       </div>
     </transition>
-  </div>
+</div>
 </template>
 
 <script>
-import Cookies from 'js-cookie';
 export default {
-  name: 'login',
+  name: 'register',
   data () {
-    const validatepassword = (rule, value, callback) => {
+    var validateusername = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入用户名'));
+      } else {
+        callback();
+      }
+    };
+    var validatepassword = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入密码'));
       } else {
@@ -34,8 +42,9 @@ export default {
     };
     return {
       ruleForm: {
-        iphone: '',
-        password: ''
+        iphone: '15770903097',
+        username: '',
+        password: '1234523'
       },
       rules: {
         iphone: [
@@ -46,6 +55,9 @@ export default {
             trigger: 'blur'
           }
         ],
+        username: [
+          { validator: validateusername, trigger: 'blur' }
+        ],
         password: [
           { validator: validatepassword, trigger: 'blur' }
         ]
@@ -53,12 +65,13 @@ export default {
     };
   },
   methods: {
-    login () {
+    register () {
       const params = {
         iphone: this.ruleForm.iphone,
+        username: this.ruleForm.username,
         password: this.ruleForm.password
       };
-      this.post('/login', params)
+      this.post('/register', params)
         .then(e => {
           if (e.status === 200) {
             this.$message.success(e.msg);
@@ -71,22 +84,18 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.login();
-          Cookies.set('iphone', this.ruleForm.iphone);
-          Cookies.set('password', this.ruleForm.password);
-          this.$router.push({ name: 'home' });
+          this.register();
+          this.$router.push({ name: 'login' });
         } else {
           return false;
         }
       });
     }
   },
-  mounted () {
-
-  }
+  mounted () {}
 };
 </script>
 
 <style lang="less" scoped>
-@import url("./login");
+@import url("./register");
 </style>

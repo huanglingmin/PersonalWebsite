@@ -29,7 +29,7 @@ export default {
         password: 123456,
         age: 25
       };
-      this.post('/add', qs.stringify(params))
+      this.post('/', qs.stringify(params))
         .then(res => {
           if (res.status === 200) {
             console.log(res);

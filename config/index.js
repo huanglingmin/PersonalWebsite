@@ -13,7 +13,7 @@ module.exports = {
     proxyTable: {
       '/api': {
         // target: 'https://pretest.forwe.store/',
-        target: 'http://10.255.0.134:3000',
+        target: 'http://172.17.9.71:3000',
         changeOrigin: true,
         // secure: false,
         pathRewrite: {
