@@ -42,9 +42,9 @@ export default {
     };
     return {
       ruleForm: {
-        iphone: '15770903097',
+        iphone: '13412341234',
         username: '',
-        password: '1234523'
+        password: '123456'
       },
       rules: {
         iphone: [
@@ -73,26 +73,24 @@ export default {
       };
       this.post('/register', params)
         .then(e => {
-          if (e.status === 200) {
-            this.$message.success(e.msg);
-          } else {
-            this.$message.error(e.msg);
-          }
+          this.$message.success(e.msg);
+          this.$router.push({ name: 'login' });
         })
-        .catch(e => { });
+        .catch(e => {
+          this.$message.error(e.msg);
+        });
     },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.register();
-          this.$router.push({ name: 'login' });
         } else {
           return false;
         }
       });
     }
   },
-  mounted () {}
+  mounted () { }
 };
 </script>
 

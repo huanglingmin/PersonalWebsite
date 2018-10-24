@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 export default {
   name: 'login',
   data () {
@@ -60,21 +60,19 @@ export default {
       };
       this.post('/login', params)
         .then(e => {
-          if (e.status === 200) {
-            this.$message.success(e.msg);
-          } else {
-            this.$message.error(e.msg);
-          }
+          this.$message.success(e.msg);
+          this.$router.push({ name: 'home' });
         })
-        .catch(e => { });
+        .catch(e => {
+          this.$message.error(e.msg);
+        });
     },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.login();
-          Cookies.set('iphone', this.ruleForm.iphone);
-          Cookies.set('password', this.ruleForm.password);
-          this.$router.push({ name: 'home' });
+          // Cookies.set('iphone', this.ruleForm.iphone);
+          // Cookies.set('password', this.ruleForm.password);
         } else {
           return false;
         }

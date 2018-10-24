@@ -2,22 +2,39 @@
   <div>
     <el-table
       :data="tableData"
-      style="width: 100%"
+      style="width: 100%;text-align:center"
       :row-class-name="tableRowClassName">
       <el-table-column
         prop="createdAt"
-        label="日期">
+        label="日期"
+        header-align="center">
       </el-table-column>
       <el-table-column
         prop="username"
-        label="姓名">
+        label="姓名"
+        header-align="center">
       </el-table-column>
       <el-table-column
         prop="iphone"
-        label="手机号">
+        label="手机号"
+        header-align="center">
+      </el-table-column>
+      <el-table-column
+      label="操作"
+      header-align="center">
+      <div slot-scope="scope">
+        <el-button size="mini">删除</el-button>
+        <el-button size="mini">删除</el-button>
+        <el-button size="mini">删除</el-button>
+        <el-button size="mini">删除</el-button>
+        <el-button size="mini">删除</el-button>
+        <el-button size="mini">删除</el-button>
+        <el-button size="mini">删除</el-button>
+        <el-button size="mini">删除</el-button>
+      </div>
       </el-table-column>
     </el-table>
-    <page-com :count="count" @handleCurrentChange="handleCurrentChange"/>
+    <page-com :count="params.count" :pageSize="params.pageSize" @handleCurrentChange="handleCurrentChange"/>
   </div>
 </template>
 
@@ -29,10 +46,10 @@ export default {
   data () {
     return {
       tableData: [],
-      count: 0,
       params: {
+        count: 0,
         pageNum: 1,
-        pageSize: 3
+        pageSize: 10
       }
     };
   },
@@ -41,21 +58,21 @@ export default {
   },
   methods: {
     tableRowClassName ({ row, rowIndex }) {
-      if (rowIndex === 1) {
-        return 'warning-row';
-      } else if (rowIndex === 3) {
+      if (rowIndex % 2) {
+        // return 'warning-row';
         return 'success-row';
+      } else {
+        return '';
       }
-      return '';
     },
     handleCurrentChange (val) {
       this.params.pageNum = val;
       this.getUserList();
     },
     getUserList () {
-      this.get('/user_list', this.params).then((res) => {
-        this.tableData = res.rows;
-        this.count = res.count;
+      this.get('/userList', this.params).then((res) => {
+        this.tableData = res.data.rows;
+        this.params.count = res.data.count;
       });
     }
   }

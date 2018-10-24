@@ -4,7 +4,7 @@
       background
       layout="prev, pager, next"
       :total="count"
-      :page-size="3"
+      :page-size="pageSize"
       @current-change="handleCurrentChange">
     </el-pagination>
   </div>
@@ -12,10 +12,9 @@
 
 <script>
 export default {
-  props: ['count'],
+  props: ['count', 'pageSize'],
   methods: {
     handleCurrentChange (val) {
-      console.log(`当前页: ${val}`);
       this.$emit('handleCurrentChange', val);
     }
   }

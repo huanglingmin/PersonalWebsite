@@ -35,7 +35,7 @@
 // import Cookies from 'js-cookie';
 import { mapState, mapGetters } from 'vuex';
 export default {
-  data() {
+  data () {
     return {
       username: ''
     };
@@ -47,35 +47,27 @@ export default {
     })
   },
   methods: {
-    handleOpen(key, keyPath) {
+    handleOpen (key, keyPath) {
       console.log(key, keyPath);
     },
-    handleClose(key, keyPath) {
+    handleClose (key, keyPath) {
       console.log(key, keyPath);
     },
-    selectMenu(index) {
+    selectMenu (index) {
       console.log(index);
     },
-    ExitLogin() {
-      this.post('portal-web/logout')
+    ExitLogin () {
+      this.get('/outLogin')
         .then(e => {
-          if (e.result === '1') {
-            // this.data = e.data;
-            console.log(e.data);
-          }
+          this.$message.success(e.msg);
+          this.$router.push({ name: 'login' });
+        })
+        .catch(err => {
+          this.$message.error(err.msg);
         });
-    },
-    getWetherData() {
-      const data = {
-        app: 'hao360',
-        _jsonp: 'smartloaddata',
-        code: 101010100
-      };
-      // this.post('http://cdn.weather.hao.360.cn/api_weather_info.php?app=hao360&_jsonp=smartloaddata&code=101010100').then(e => console.log(e));
-      this.get('http://cdn.weather.hao.360.cn/api_weather_info.php', {...data}).then(e => console.log(e));
     }
   },
-  mounted() {
+  mounted () {
     // this.getWetherData();
   }
 };
@@ -127,7 +119,11 @@ export default {
     }
   }
   .context {
-    margin: 20px 20px 20px 220px;
+    height: ~"calc(100% - 60px)";
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    overflow-y: scroll;
   }
 }
 </style>
