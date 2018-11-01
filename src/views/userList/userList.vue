@@ -23,14 +23,7 @@
       label="操作"
       header-align="center">
       <div slot-scope="scope">
-        <el-button size="mini">删除</el-button>
-        <el-button size="mini">删除</el-button>
-        <el-button size="mini">删除</el-button>
-        <el-button size="mini">删除</el-button>
-        <el-button size="mini">删除</el-button>
-        <el-button size="mini">删除</el-button>
-        <el-button size="mini">删除</el-button>
-        <el-button size="mini">删除</el-button>
+        <el-button size="mini" @click="delUser(scope.row.id)">删除</el-button>
       </div>
       </el-table-column>
     </el-table>
@@ -68,6 +61,18 @@ export default {
     handleCurrentChange (val) {
       this.params.pageNum = val;
       this.getUserList();
+    },
+    // 删除用户
+    delUser (id) {
+      console.log(id);
+      this.post('/delUserList', { id })
+        .then(res => {
+          this.getUserList();
+          this.$message.success(res.msg);
+        })
+        .catch(err => {
+          this.$message.error(err.msg);
+        });
     },
     getUserList () {
       this.get('/userList', this.params).then((res) => {
