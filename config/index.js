@@ -12,7 +12,6 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        // target: 'https://pretest.forwe.store/',
         target: 'http://172.17.9.224:3000',
         changeOrigin: true,
         // secure: false,
