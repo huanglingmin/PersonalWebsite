@@ -57,7 +57,7 @@ export default {
       console.log(index);
     },
     ExitLogin () {
-      this.get('/outLogin')
+      this.get('user/outLogin')
         .then(e => {
           this.$message.success(e.msg);
           this.$router.push({ name: 'login' });

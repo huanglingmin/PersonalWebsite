@@ -58,7 +58,7 @@ export default {
         iphone: this.ruleForm.iphone,
         password: this.ruleForm.password
       };
-      this.post('/login', params)
+      this.post('user/login', params)
         .then(e => {
           this.$message.success(e.msg);
           this.$router.push({ name: 'home' });

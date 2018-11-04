@@ -71,7 +71,7 @@ export default {
         username: this.ruleForm.username,
         password: this.ruleForm.password
       };
-      this.post('/register', params)
+      this.post('user/register', params)
         .then(e => {
           this.$message.success(e.msg);
           this.$router.push({ name: 'login' });

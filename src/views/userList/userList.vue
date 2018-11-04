@@ -65,7 +65,7 @@ export default {
     // 删除用户
     delUser (id) {
       console.log(id);
-      this.post('/delUserList', { id })
+      this.post('user/delUserList', { id })
         .then(res => {
           this.getUserList();
           this.$message.success(res.msg);
@@ -75,7 +75,7 @@ export default {
         });
     },
     getUserList () {
-      this.get('/userList', this.params).then((res) => {
+      this.get('user/userList', this.params).then((res) => {
         this.tableData = res.data.rows;
         this.params.count = res.data.count;
       });
